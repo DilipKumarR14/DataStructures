@@ -5,83 +5,64 @@ class Stack {
     public $stack;
     public $limit;
 
-    public function __construct($limit = 10, $initial = array()) {
-        // initialize the stack
+    public function __construct($limit, $initial = array()) {
         $this->stack = $initial;
-        // stack can only contain this many items
         $this->limit = $limit;
     }
 
     public function push($item) {
-        // checking for overflow
-        if (count($this->stack) < $this->limit) {
-            array_unshift($this->stack, $item);//add the element to start of array
+        // checking the size
+        if (count($this->stack) <= $this->limit) {
+            array_unshift($this->stack, $item);// add to start of array
         } else {
-            throw new RunTimeException('Stack is full!');
+            echo('not balanced !');
         }
     }
 
     public function pop() {
         if ($this->isEmpty()) {
-            // checking for over flow
-            throw new RunTimeException('Stack is empty!');
+            echo ('Stack is empty!');
         } else {
-            return array_shift($this->stack);// remove the element from start of array
+            return array_shift($this->stack);// pop the element from start
         }
-    }
-
-    public function top() {
-        return current($this->stack);
     }
 
     public function isEmpty() {
         return empty($this->stack);
     }
-    public function isMatchingPair($char1, $char2)
-    {
-       if ($char1 == '(' && $char2 == ')')
-         return true;
-       else
-         return false;
-    }
-    public function paranthesis(array $exp)
-    {
-        $stack = new Stack();
-        for($i=0;$i<count($exp);$i++)
-       {
-            if($exp[$i]=='(')
-            {
-                $stack->push($exp[$i]);
-            }
-            if ($exp[$i] == ')')
-            {
-                if(!$this->isMatchingPair($stack->pop(),$exp[$i]))
-                {
-                    return false;
-                }
-            }
-       }
-    }
+
 }
-$stack = new Stack();
+
 $ref=new utility();
 echo "enter the string of expression : ";
 $str=$ref->getstring();
-// paranthesis($str);
 $str=str_split($str);
-if($stack->paranthesis($str))
+$s=new Stack(count($str),$str);
+
+for($i=0;$i<sizeof($str);$i++)
+{
+    if($str[$i]=="(")
     {
-        echo "true" . "\n";
+        $s->push($str[$i]);
+    }
+    if ($str[$i]==")") {
+        if(!match($s->pop(),$str[$i]))
+        {
+            return false;
+        }
+    }
+  
+}
+function match($str1,$str2)
+{
+    if($str1=="(" && $str2 == ")")
+    {
+        echo "balanced \n";
     }
     else
     {
-        echo "false" . "\n";
+        echo "not balanced ";
     }
-
-// $str=str_split($str);
-// for($i=0;$i<count($str);$i++)
-// {
-//     $stack->push($str[$i]);
-// }
-//  print_r($stack);
+}
+print_r($s);
 ?>

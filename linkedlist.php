@@ -1,103 +1,122 @@
 <?php
-include "file.txt";
 include "utility.php";
-$ref=new utility();
-$a=file_get_contents("file.txt");
-$s=str_replace(",","",$a);//remove commas
-$s=explode(" ",$s);
-echo "\n";
-class ListNode
+include "file.txt";
+class Node
 {
     public $data;
     public $next;
-    function __construct($ele)
-    {
-        $this->data = $ele;
-        $this->next = NULL;
-    }
 
-    function readNode()
+    public function __construct($item)
     {
-        return $this->data;
+        $this->data = $item;
+        $this->next = null;
     }
 }
 
 class LinkList
 {
-    public $head;
-    private $tail;
-    private $count;
+    public $head = null;
 
-    function __construct()
+    private static $count = 0;
+    public function GetCount()
     {
-        $this->head = NULL;
-        $this->count = 0;
+        return self::$count; //accessing the static content
     }
+    public function Insert($item)
+    {
+        if ($this->head == null) {
+            $this->head = new Node($item);
+        } else {
+            $current = $this->head;
+            while ($current->next != null) {
+                $current = $current->next;
+            }
 
-    public function insertF($data)
-    {
-        $link = new ListNode($data);
-        $link->next = $this->head;
-        $this->head = &$link;
- 
-        //if first is already present then insert it at last
-        if($this->tail == NULL)
-            $this->tail = &$link;
- 
-        $this->count++;
-    }
-    public function insert($data)
-    {
-        if($this->head != NULL)
-        {
-            $link = new ListNode($data);
-            $this->tail->next = $link;
-            $link->next = NULL;
-            $this->tail = &$link;
-            $this->count++;
+            $current->next = new Node($item);
         }
-        else
-        {
-           $this->insertF($data);
+
+        self::$count++;
+    }
+    public function Delete($key)
+    {
+        $current = $previous = $this->head;
+
+        while ($current->data != $key) {
+            $previous = $current;
+            $current = $current->next;
         }
+
+        if ($current == $previous) {
+            $this->head = $current->next;
+        }
+
+        $previous->next = $current->next;
+
+        self::$count--;
     }
 
-    public function list()
+    public function PrintAsList()
+    {
+        $items = [];
+        $current = $this->head;
+        while ($current != null) {
+            array_push($items, $current->data);
+            $current = $current->next;
+        }
+        $str = '';
+        foreach ($items as $item) {
+            $str .= $item . "->";
+        }
+        echo $str;
+        echo "\n";
+    }
+    public function search($str)
     {
         $current=$this->head;
         while($current->next!=NULL)
         {
-            echo $current->data . "\t";
-            $current=$current->next;
+            if($current->data==$str)
+            {
+                return $current->data;
+            }
+            else
+            {
+                $current=$current->next;
+            }
         }
     }
 }
-
-$obj = new LinkList();
-for($i=0;$i<count($s);$i++)
+$n = new LinkList();
+$values = file_get_contents("file.txt");
+$values = explode(" ", $values);
+for ($i = 0; $i < count($values); $i++) {
+    $n->Insert($values[$i]);
+}
+echo "\n";
+$n->PrintAsList();
+$ref=new utility();
+echo "enter the strings to search : ";
+$search=$ref->getstring();
+for($i=0;$i<$n->GetCount();$i++)
 {
-    $obj->insert($s[$i]);
+if($search == $n->search($search))
+{
+    echo "found \n";
+    $n->Delete($search);
+    $n->PrintAsList();
+    break;
 }
-
-$obj->list();
-echo "\n";
-echo "\n enter the word to search : ";
-$string=$ref->getstring();
-
-    $current=$obj->head;
-    while($current->next!=NULL)
-    {
-        if($current->data == $string)
-        {
-            echo "element found \n ";
-        }
-        else
-        {
-            // $obj->insertat($string,$obj->insert($string));
-        }
-        $current=$current->next;
-    }
-
-echo "\n";
-
+else{
+    echo "not found \n";
+    $n->Insert($search);
+    $n->PrintAsList();
+    break;
+}
+$file=fopen("file.txt","w");
+for($i=0;$i<$n->GetCount();$i++)
+{
+    fwrite($file,$n->PrintAsList());
+}
+fclose($file);
+}
 ?>
