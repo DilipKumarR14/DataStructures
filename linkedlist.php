@@ -3,7 +3,7 @@
 class LinkList
     {
         public $head = null;
-
+        public $next = null;
         private static $count = 0;
         public function Count()
         {
@@ -79,6 +79,25 @@ class LinkList
             $prev->next=$link;
             $link->next=$curr;
             self::$count++;
+        }
+
+        public function searching($string)
+        {
+            $curr=$this->head;
+            while($curr!=null)
+            {
+                if($curr->data == $string){
+                    return true;
+                    break;
+                }
+                elseif ($curr->data != $string) {
+                    $curr=$curr->next;
+                }
+                else
+                {
+                    return false;
+                }   
+            }
         }
     }
 ?>

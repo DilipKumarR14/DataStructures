@@ -1,22 +1,14 @@
 <?php
-
 class Node
 {
+    public $ele;
     public $left;
     public $right;
-    public $ele;
 
-    public function __construct()
+    public function __construct($elements)
     {
-        $this->left=NULL;
-        $this->right=NULL;
-        $this->ele=0;
-    }
-
-    public function __toString()
-    {
-        return "$this->ele";
+        $this->left = null;
+        $this->right = null;
+        $this->ele = $elements;
     }
 }
-
-?>

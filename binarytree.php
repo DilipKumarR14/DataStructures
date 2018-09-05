@@ -3,59 +3,50 @@ include "utility.php";
 include "binnode.php";
 class binarytree
 {
-    public $rootnode;
+    public $root;
     public function __construct()
     {
-        $this->rootnode =0;
+        $this->root=0;
     }
-    public function insert($ele)
+
+    public function Empty()
     {
-        if($this->rootnode==NULL)
-        {
-            $this->rootnode=new Node($ele);
+        $this->root==null;
+    }
+
+    public function insert($item) {
+        $node = new Node($item);
+        if ($this->Empty()) {
+            $this->root = $node;
         }
         else {
-            $temp=$this->rootnode;
-            while (true)#until element is found  
-            {
-                
-                if($ele < $temp->ele)
-                {
-                    if($temp->left)
-                    {
-                        $temp=$temp->next;
-                    }
-                    else
-                    {
-                        $temp=new Node($ele);#go deep in search of array
-                        break;
-                    }
-                }
-                elseif ($ele > $temp->ele) {
-                    if($temp->right)
-                    {
-                        $temp=$temp->next;
-                    }
-                    else{
-                        $temp=new Node($ele);
-                        break;
-                    }
-                }
-                else {
-                    break;
-                }
-
-            }
+            $this->insertAt($node, $this->root);
         }
     }
 
+    public function insertAt($node, &$next) {
+        if ($next == null) {
+            $next = $node;
+        }
+        else {
+            if ($node->ele > $next->ele) {
+                $this->insertAt($node, $next->right);// insert the element right side of tree
+            }
+            else if ($node->ele < $next->ele) {
+                $this->insertAt($node, $next->left); // insert the element left side of tree
+            }
+            else {    
+            return;// already element is present dup
+                 }
+        }
+    }
 }
-$b=new binarytree();
-
-echo $b->insert(10);
+$b = new binarytree();
 $b->insert(5);
-$b->insert(66);
-$b->insert(12);
+$b->insert(1);
+$b->insert(2);
+$b->insert(3);
+$b->insert(4);
+$b->insert(100);
 print_r($b);
-
 ?>

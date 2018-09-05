@@ -192,5 +192,80 @@ class utility
         }
     }
 
+    #hashing
+
+    public function getlist()
+    {
+        $ref = new utility();
+        $filestr = file_get_contents("filehash.txt");
+        echo "\n";
+        $filestr = preg_replace("/,/", " ", $filestr); //replace the commas
+        echo "\n";
+        $filestr = explode(" ", $filestr); //split the string
+        $arr = array();
+
+        #sorting the numbers;
+        for ($j = 0; $j < sizeof($filestr); $j++) {
+            for ($i = 0; $i < sizeof($filestr) - 1; $i++) {
+                if ($filestr[$i] > $filestr[$i + 1]) {
+                    $temp = $filestr[$i + 1];
+                    $filestr[$i + 1] = $filestr[$i];
+                    $filestr[$i] = $temp;
+                }
+            }
+        }
+        for ($i = 0; $i < 11; $i++) {
+            $arr[$i] = new LinkList(); // creating the linked list for each element 0-10
+        }
+
+        for ($i = 0; $i < sizeof($filestr); $i++) { // calculating the collision
+            $ele = $filestr[$i];
+            $cal = $ele % 11;
+            $arr[$cal]->Insert($ele);
+        }
+        print_r($arr);
+        $link = new LinkList();
+        echo "\n";
+        print_r($filestr);
+        echo "enter the element to search : ";
+        $se = $ref->getint();
+        $cal = $se % 11; #calculating the node number
+        $find = $arr[$cal]->searching($se); #find the number in the list
+        if ($find == true) {
+            echo "found \n";
+            $arr[$cal]->Delete($se);
+            print_r($arr);
+        } else {
+            echo "not found \n";
+            $arr[$cal]->Insert($se);
+            print_r($arr);
+        }
+
+    }
+    public function leap($num)
+    {
+        if (strlen($num) == 4) {
+            if(($num % 4 == 0) && ($num%100 != 0))
+            return true;
+            if($num % 400==0) return true;
+            return false;
+        }
+        else
+        {
+            echo "enter the 4 digit leap year \n";
+            $var=$this->getint();
+            $this->leap($var);
+        }
+    }
+    function daycal($month, $day, $year)
+    {
+        $y = $year - (14 - $month) / 12;
+        $x = $y + $y / 4 - $y / 100 + $y / 400;
+        $m = $month + 12 * ((14 - $month) / 12) - 2;
+        $d = ($day + $x + (31 * $m) / 12) % 7;
+        return $d;
+    }
+
     #main ends
 }
+?>
