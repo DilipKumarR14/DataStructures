@@ -14,7 +14,7 @@ class Queue
     public function enqueue($value){
         $prev = $this->back;
         $this->back = new Element(); 
-        $this->back->value = $value;
+        $this->back->value = $value;#back move fwd
 
         if($this->isEmpty()){
           $this->front = $this->back; //if no element is present the both element is null

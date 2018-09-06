@@ -1,5 +1,5 @@
 <?php
-
+include "node.php";
 class LinkList
     {
         public $head = null;
@@ -98,6 +98,20 @@ class LinkList
                     return false;
                 }   
             }
+        }
+        public function get($index)
+        {
+            $node=$this->head;
+            $r=0;
+            for($i=0;$i<$index;$i++)
+            {
+                if($i==$index-1)
+                {
+                    $r=$node->data;
+                }
+                $node=$node->next;
+            }
+            return $r;
         }
     }
 ?>
