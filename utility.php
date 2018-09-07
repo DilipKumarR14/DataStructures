@@ -245,19 +245,22 @@ class utility
     public function leap($num)
     {
         if (strlen($num) == 4) {
-            if(($num % 4 == 0) && ($num%100 != 0))
-            return true;
-            if($num % 400==0) return true;
+            if (($num % 4 == 0) && ($num % 100 != 0)) {
+                return true;
+            }
+
+            if ($num % 400 == 0) {
+                return true;
+            }
+
             return false;
-        }
-        else
-        {
+        } else {
             echo "enter the 4 digit leap year \n";
-            $var=$this->getint();
+            $var = $this->getint();
             $this->leap($var);
         }
     }
-    function daycal($month, $day, $year)
+    public function daycal($month, $day, $year)
     {
         $y = $year - (14 - $month) / 12;
         $x = $y + $y / 4 - $y / 100 + $y / 400;
@@ -266,30 +269,30 @@ class utility
         return $d;
     }
 
-
-    function calender(){
+    public function calender()
+    {
         $ref = new utility();
         echo "Enter the month : ";
         $month = $ref->getint();
         echo "Enter the year : ";
         $year = $ref->getint();
         $spaces = 0;
-        
+
         $day = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-        
+
         $days = array(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
         $date = $year . "-" . $month . "-" . "1";
-        // prints the current time in date format 
+        // prints the current time in date format
         $unixTimestamp = strtotime($date); #string containing an English date format and will try to parse that format into a Unix timestamp
-        
-        $dayOfWeek = date("l", $unixTimestamp);# l- Format a local date and time and return the formatted date strings
+
+        $dayOfWeek = date("l", $unixTimestamp); # l- Format a local date and time and return the formatted date strings
         for ($i = 0; $i < 7; $i++) { #finding the no of spaces required
-            if ($dayOfWeek == $day[$i]) {
-                $spaces = $i;
-            }
+        if ($dayOfWeek == $day[$i]) {
+            $spaces = $i;
+        }
         }
         echo "S\tM\tTu\tW\tTh\tF\tS\n";
-        
+
         for ($i = 0; $i < $spaces; $i++) {
             echo "\t";
         }
@@ -309,9 +312,45 @@ class utility
                 echo "\n";
             }
         }
-        
+
+    }
+
+    #prime numbers
+    public function prime($num)
+    {
+        $count = 0;
+        $i = 1;
+        while ($i <= $num / 2) {
+            if ($num % $i == 0) {
+                $count++;
+            }
+            $i++;
+        }
+        if ($count == 1) {
+            return true;
+        }
+    }
+        public function reverse($num)
+        { 
+            $revnum = 0;  
+            while ($num > 1)  
+            {  
+            $rem = $num % 10;  
+            $revnum = ($revnum * 10) + $rem;  
+            $num = ($num / 10);   
+            }  
+            return $revnum;  
+         
+        }
+        function anagramint($number)
+        {
+            if($this->prime($number) && $this->reverse($number)){
+                return $number;
+            }
+            else{
+                return;
+            }
         }
 
     #main ends
 }
-?>
