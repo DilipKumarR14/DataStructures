@@ -1,7 +1,8 @@
 <?php
 include "utility.php";
-include "file.txt";
 include "linkedlist.php";
+include "stack.php";
+
 $ref=new utility();
-$ref->linkedliststring();
+$ref->primeanagram13();
 ?>

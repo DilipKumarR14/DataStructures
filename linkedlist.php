@@ -27,6 +27,8 @@ class LinkList
         public function Delete($key)
         {
             $current = $previous = $this->head;
+            // $current=$previous;
+            // $previous=$this->head;
             while ($current->data != $key) {
                 $previous = $current;
                 $current = $current->next;
@@ -80,7 +82,7 @@ class LinkList
             $link->next=$curr;
             self::$count++;
         }
-
+        # search the element
         public function searching($string)
         {
             $curr=$this->head;
@@ -99,6 +101,7 @@ class LinkList
                 }   
             }
         }
+        #return the particular index
         public function get($index)
         {
             $node=$this->head;
@@ -114,4 +117,12 @@ class LinkList
             return $r;
         }
     }
+
+    // $link=new LinkList();
+    // $link->Insert(10);
+    // $link->Insert(20);
+    // $link->Insert(30);
+    // $link->Insert(60);
+    // $link->Delete(20);
+    // print_r($link);
 ?>

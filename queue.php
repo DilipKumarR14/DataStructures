@@ -14,12 +14,12 @@ class Queue
     public function enqueue($value){
         $prev = $this->back;
         $this->back = new Element(); 
-        $this->back->value = $value;#back move fwd
+        $this->back->value = $value;#back move fwd if back is null
 
         if($this->isEmpty()){
           $this->front = $this->back; //if no element is present the both element is null
         }else{
-          $prev->next = $this->back;
+          $prev->next = $this->back;// traverse thru the queue
           $this->count++;
         }
      }

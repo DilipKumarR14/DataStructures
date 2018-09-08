@@ -352,5 +352,88 @@ class utility
             }
         }
 
+        function anagramint13($number)
+        {
+            if($this->prime($number) && $this->reverse($number)){
+                return $number;
+            }
+            else{
+                return;
+            }
+        }
+
+
+        #primeannaagran2d
+        function primeannagram2d()
+{
+    
+    echo "Enter the limit of prime number : ";
+    $prime = $this->getint();
+    echo "Enter the no of element to be stored in each row : ";
+    $range = $this->getint();
+    $result = $prime / $range;
+    $low = 0;
+    $high = $range;
+    $arr = array(array());
+    $arr1 = array(array());
+    $primek = 0;
+    $nonprimek1 = 0;
+    for ($i = 0; $i < $result; $i++) {
+        if ($i == 0) { # 0-50 element 0..
+        $low = $low;
+            $high = $high;
+        } else { #next elemnt 51 ..1-2-3
+        $low = $high + 1;
+            $high = $high + $range;
+        }
+        for ($j = $low; $j <= $high; $j++) {
+            if ($this->anagramint($j)) {
+                $arr[$i][$primek] = $j;
+                $primek++;
+            } else {
+                $arr1[$i][$nonprimek1] = $j;
+                $nonprimek1++;
+            }
+        }
+    }
+    echo "Prime and Anagram\n";
+    print_r($arr);
+    echo "Not! Prime and Anagram\n";
+    print_r($arr1);
+}
+
+function primeanagram13()
+{
+    $link = new LinkList();
+    $s = new Stack();
+    $ref = new utility();
+
+    echo "ENter the Prime-Anagram Range: ";
+    $range = $ref->getint();
+
+    for ($i = 1; $i <= $range; $i++) {
+        if ($ref->anagramint13($i)) {
+            $link->Insert($i);
+        }
+
+    }
+    print_r($link);
+    $size = $link->Count();
+    for ($i = 1; $i <= $size; $i++) {
+        $put = $link->get($i);
+        $s->push($put);
+    }
+    print_r($s);
+    echo "\n";
+    for ($i = 1; $i <= $size; $i++) {
+        echo "Popped Element \n";
+        $put = $s->pop();
+        echo $put . "\n";
+    }
+// print_r($s);
+    echo "\n";
+// print_r($link);
+}
+        
     #main ends
 }
