@@ -1,10 +1,18 @@
 <?php
 include_once("configs.php");
+/**
+ * check the whether data is entered by the user 
+ */
 if (isset($_POST['name']) && isset($_POST['age'])) {
     deleted($_POST['name'],$_POST['age']);
 } else {
     echo "empty Data";
 }
+/**
+*@method : enable to view the employee information
+* @var Object $con : holds the object the connection
+* @var row : fetch the data inform of associated array from database
+*/
 function deleted($name,$age)
 {
     $con = new Config();

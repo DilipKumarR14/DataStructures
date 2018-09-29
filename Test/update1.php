@@ -7,7 +7,6 @@ if (isset($_POST['name']) && isset($_POST['age']) && isset($_POST['uname']) && i
 }
 function updated($name,$age,$uname,$uage)
 {
-
     $con = new Config();
     $con = $con->configs();
     $fetched = mysqli_query($con, "select id from emp where name='$name' and age='$age' ");
@@ -15,7 +14,7 @@ function updated($name,$age,$uname,$uage)
     $res=$row['id'];
     $resname = mysqli_query($con, "select name,age from emp where name='$name' and age='$age'");
     // $resage = mysqli_query($con, "select age from emp where name='$age'");
-    if ($name == "" && $age = "") {
+    if ($name == "" && $age == "" && $uname == "" && $uage == "") {
         echo "empty data";
     } else if (mysqli_num_rows($resname) > 0) {
         $query = "UPDATE emp SET name='$uname',age='$uage' WHERE id=$res ";

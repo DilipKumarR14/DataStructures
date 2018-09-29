@@ -5,6 +5,11 @@
 <head>
 
     <script>
+    /**
+*@method : fetch the data entred by the user from form to delete
+* @var firstname: holds te data name from the form
+* @var age : holds te data age from the form
+*/
      function deletes() {
         var firstname = document.getElementById("name").value;
         var age = document.getElementById("age").value;
@@ -14,14 +19,11 @@
          type: "POST",
          url: "delete1.php",
          success: function(data){
-         if(data.success == true){ // if true (1)
-         alert(data)
-        }
-   else{
-    setTimeout(function(){  // wait for 0.5 secs(2)
+         // if true (1)
+         alert(data);
+        setTimeout(function(){  // wait for 0.5 secs(2)
            location.reload(); // then reload the page.(3)
       }, 100); 
-   }
 }
 })
 }    

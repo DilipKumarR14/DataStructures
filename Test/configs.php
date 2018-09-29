@@ -1,4 +1,8 @@
 <?php
+/*******************************
+ * @desciption : Connect to the database
+ * @method : establish the connection to database
+ *******************************/
 class Config
 {
 	function configs()

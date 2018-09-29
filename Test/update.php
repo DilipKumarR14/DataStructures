@@ -3,8 +3,15 @@
 <html>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
-
     <script>
+    /**
+*@method : fetch the data entred by the user from form to update
+* @var firstname: holds the data name from the form
+* @var age : holds the data age from the form
+* @var uname: holds the data updated name from the form
+* @var firstname: holds the data updated age from the form
+
+*/
      function updates() {
         var firstname = document.getElementById("name").value;
         var age = document.getElementById("age").value;
@@ -18,9 +25,10 @@
          url: "update1.php",
          success: function(data){
             if(data.success == true){ // if true (1)
-         alert(data)
+         
         }
      else{
+        alert(data);
     setTimeout(function(){  // wait for 0.5 secs(2)
            location.reload(); // then reload the page.(3)
       }, 100); 

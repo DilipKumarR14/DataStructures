@@ -5,7 +5,13 @@
 <!-- <meta http-equiv="refresh" content="5"> -->
 </head>
 <script>
+/**
+*@method : fetch the data entred by the user from form
+* @var firstname: holds te data name from the form
+* @var age : holds te data age from the form
+*/
     function insert() {
+        
         var firstname = document.getElementById("fname").value;
         var ages = document.getElementById("age").value;
         var data = {name:firstname,age:ages,store:'emp'};
@@ -14,14 +20,11 @@
          type: "POST",
          url: "emp.php",
          success: function(data){
-            if(data.success == true){ // if true (1)
-         alert(data)
-        }
-   else{
+    alert(data)
     setTimeout(function(){  // wait for 0.5 secs(2)
            location.reload(); // then reload the page.(3)
       }, 100); 
-   }
+
          }
 });
 }
@@ -47,7 +50,7 @@
             <td>
             <!-- To read the employee Information -->
                 <h2>To Read The Employee Information</h2>
-                <button type=button onClick="parent.location='view1.php'" value='View'>View All Information</button>
+                <button type=button onClick="parent.location='view2.php'" value='View'>View All Information</button>
             </td>
             <hr> 
             <!-- To delete the information -->
